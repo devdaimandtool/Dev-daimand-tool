@@ -9,13 +9,24 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="theme-blue">
 
 <!-- ================= HEADER ================= -->
 <header class="top-header">
   <div class="logo">
     🏪 <strong>Dev Daimand Tool</strong>
   </div>
+
+  <!-- THEME SWITCH -->
+  <div class="theme-switch">
+    <select id="themeSelect" onchange="changeTheme(this.value)">
+      <option value="blue">Blue</option>
+      <option value="green">Green</option>
+      <option value="purple">Purple</option>
+      <option value="dark">Dark</option>
+    </select>
+  </div>
+
   <div class="user">
     👤 Dukandar
   </div>
@@ -38,7 +49,7 @@
 <!-- ================= MAIN CONTENT ================= -->
 <main class="main-content">
 
-  <!-- SUMMARY CARDS -->
+  <!-- DASHBOARD CARDS -->
   <section class="cards">
     <div class="card">
       <h4>आज की बिक्री</h4>
@@ -61,9 +72,9 @@
     </div>
   </section>
 
-  <!-- ================= ADD SALE FORM ================= -->
+  <!-- ADD SALE FORM -->
   <section class="panel">
-    <h3>➕ नई बिक्री जोड़ें</h3>
+    <h3>➕ नई बिक्री / उधार जोड़ें</h3>
 
     <form>
       <label>ग्राहक का नाम</label>
@@ -74,15 +85,15 @@
 
       <label>प्रकार</label>
       <select>
-        <option>Sale</option>
-        <option>Udhar</option>
+        <option value="sale">Sale</option>
+        <option value="udhar">Udhar</option>
       </select>
 
       <button type="button">💾 Save Entry</button>
     </form>
   </section>
 
-  <!-- ================= CUSTOMER TABLE ================= -->
+  <!-- CUSTOMER TABLE -->
   <section class="panel">
     <h3>📒 Customer Khata List</h3>
 
@@ -96,18 +107,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Ramesh</td>
-          <td>₹1200</td>
-          <td>Udhar</td>
-          <td>आज</td>
-        </tr>
-        <tr>
-          <td>Suresh</td>
-          <td>₹800</td>
-          <td>Sale</td>
-          <td>आज</td>
-        </tr>
+        <!-- JS se data aayega -->
       </tbody>
     </table>
   </section>
@@ -119,9 +119,10 @@
   © 2026 Dev Daimand Tool | Smart Hisab Kitab with AI
 </footer>
 
-<!-- ================= JS ================= -->
+<!-- ================= JS FILES ================= -->
 <script src="js/data.js"></script>
 <script src="js/hisab.js"></script>
+<script src="js/theme.js"></script>
 
 </body>
 </html>
