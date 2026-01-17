@@ -1,83 +1,80 @@
 /*************************************
  * Dev Daimand Tool
- * AI Analysis + Voice Engine
+ * AI + Chart Intelligence Engine
  *************************************/
 
 function runAI() {
   const data = getAllData();
 
   if (data.length === 0) {
-    speak("Abhi tak koi business data nahi hai.");
-    showText("Koi data available nahi hai.");
+    speak("Abhi koi data nahi hai");
+    showText("Data available nahi hai");
     return;
   }
 
-  let totalSale = 0;
-  let totalUdhar = 0;
-  let customerMap = {};
-  let today = new Date().toISOString().slice(0,10);
+  let sale = 0;
+  let udhar = 0;
+  let days = {};
 
   data.forEach(d => {
-    if (d.type === "sale") totalSale += d.amount;
-    if (d.type === "udhar") totalUdhar += d.amount;
+    if (d.type === "sale") sale += d.amount;
+    if (d.type === "udhar") udhar += d.amount;
 
-    if (!customerMap[d.name]) customerMap[d.name] = 0;
-    customerMap[d.name] += d.amount;
+    if (!days[d.date]) days[d.date] = 0;
+    days[d.date] += d.amount;
   });
 
-  // Top customer
-  let topCustomer = Object.keys(customerMap)
-    .sort((a,b)=>customerMap[b]-customerMap[a])[0];
-
-  let msg = `
-    Ab tak ki kul sale ₹${totalSale} hai.
-    Kul udhar ₹${totalUdhar} hai.
+  const msg = `
+    Kul sale ₹${sale}.
+    Kul udhar ₹${udhar}.
+    ${udhar > sale * 0.5 ? "Udhar zyada hai." : "Business stable hai."}
   `;
-
-  if (totalUdhar > totalSale * 0.5) {
-    msg += "Udhar zyada ho raha hai, paisa vasool karna zaroori hai. ";
-  } else {
-    msg += "Business achha chal raha hai. ";
-  }
-
-  msg += `Sabse zyada transaction ${topCustomer} ke saath hui hai.`;
 
   showText(msg);
   speak(msg);
 
-  showAdvice(totalSale, totalUdhar, topCustomer);
+  drawChart(days);
 }
 
-/* ===== Helpers ===== */
-
+/* ===== TEXT ===== */
 function showText(text) {
   document.getElementById("aiText").innerText = text;
 }
 
+/* ===== VOICE ===== */
 function speak(text) {
-  const voice = new SpeechSynthesisUtterance(text);
-  voice.lang = "hi-IN";
-  voice.rate = 1;
+  const s = new SpeechSynthesisUtterance(text);
+  s.lang = "hi-IN";
   window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(voice);
+  window.speechSynthesis.speak(s);
 }
 
-function showAdvice(sale, udhar, customer) {
-  const list = document.getElementById("aiAdvice");
-  list.innerHTML = "";
+/* ===== HARDCORE CHART AI ===== */
+function drawChart(dayData) {
+  const canvas = document.getElementById("aiChart");
+  const ctx = canvas.getContext("2d");
 
-  const tips = [];
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  if (udhar > sale * 0.5)
-    tips.push("⚠️ Udhar kam karo, payment reminder bhejo");
+  const keys = Object.keys(dayData);
+  const values = Object.values(dayData);
 
-  tips.push(`⭐ ${customer} loyal customer hai, offer do`);
-  tips.push("📈 Zyada bikne wale item ka stock badhao");
-  tips.push("📅 Roz data entry karo taaki report accurate rahe");
+  const max = Math.max(...values);
+  const barWidth = canvas.width / keys.length;
 
-  tips.forEach(t => {
-    const li = document.createElement("li");
-    li.innerText = t;
-    list.appendChild(li);
+  values.forEach((val, i) => {
+    const height = (val / max) * (canvas.height - 30);
+    const x = i * barWidth + 10;
+    const y = canvas.height - height - 20;
+
+    ctx.fillStyle = "#2563eb";
+    ctx.fillRect(x, y, barWidth - 20, height);
+
+    ctx.fillStyle = "#000";
+    ctx.font = "10px Arial";
+    ctx.fillText(keys[i].slice(5), x, canvas.height - 5);
   });
+
+  ctx.fillStyle = "#000";
+  ctx.fillText("AI Sale Trend", 10, 15);
 }
