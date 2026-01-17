@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <title>Dev Daimand Tool</title>
+  <title>Dev Daimand Tool | Smart Hisab Kitab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- CSS -->
@@ -11,33 +11,117 @@
 
 <body>
 
-  <!-- Header -->
-  <header>
-    <h1>🏪 Dev Daimand Tool</h1>
-    <p>Smart Hisab Kitab with AI</p>
-  </header>
+<!-- ================= HEADER ================= -->
+<header class="top-header">
+  <div class="logo">
+    🏪 <strong>Dev Daimand Tool</strong>
+  </div>
+  <div class="user">
+    👤 Dukandar
+  </div>
+</header>
 
-  <!-- Dashboard -->
-  <section>
+<!-- ================= SIDEBAR ================= -->
+<aside class="sidebar">
+  <h3>📊 Dashboard</h3>
+  <ul>
+    <li><a href="#">🏠 Home</a></li>
+    <li><a href="#">➕ Add Sale</a></li>
+    <li><a href="#">📒 Customer Khata</a></li>
+    <li><a href="#">💳 Udhar List</a></li>
+    <li><a href="#">📈 Monthly Report</a></li>
+    <li><a href="ai-report.html">🤖 AI Report</a></li>
+    <li><a href="#">⚙️ Settings</a></li>
+  </ul>
+</aside>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main class="main-content">
+
+  <!-- SUMMARY CARDS -->
+  <section class="cards">
     <div class="card">
-      <h3>आज की बिक्री</h3>
-      <span id="todaySale">₹0</span>
+      <h4>आज की बिक्री</h4>
+      <p id="todaySale">₹0</p>
     </div>
 
     <div class="card">
-      <h3>कुल उधार</h3>
-      <span id="totalDue">₹0</span>
+      <h4>कुल उधार</h4>
+      <p id="totalDue">₹0</p>
+    </div>
+
+    <div class="card">
+      <h4>इस महीने की बिक्री</h4>
+      <p id="monthSale">₹0</p>
+    </div>
+
+    <div class="card">
+      <h4>कुल ग्राहक</h4>
+      <p id="totalCustomer">0</p>
     </div>
   </section>
 
-  <!-- Navigation -->
-  <nav>
-    <a href="ai-report.html">🤖 AI Report</a>
-  </nav>
+  <!-- ================= ADD SALE FORM ================= -->
+  <section class="panel">
+    <h3>➕ नई बिक्री जोड़ें</h3>
 
-  <!-- JavaScript -->
-  <script src="js/data.js"></script>
-  <script src="js/hisab.js"></script>
+    <form>
+      <label>ग्राहक का नाम</label>
+      <input type="text" placeholder="नाम लिखें">
+
+      <label>रकम (₹)</label>
+      <input type="number" placeholder="राशि">
+
+      <label>प्रकार</label>
+      <select>
+        <option>Sale</option>
+        <option>Udhar</option>
+      </select>
+
+      <button type="button">💾 Save Entry</button>
+    </form>
+  </section>
+
+  <!-- ================= CUSTOMER TABLE ================= -->
+  <section class="panel">
+    <h3>📒 Customer Khata List</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>नाम</th>
+          <th>रकम</th>
+          <th>प्रकार</th>
+          <th>तारीख</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ramesh</td>
+          <td>₹1200</td>
+          <td>Udhar</td>
+          <td>आज</td>
+        </tr>
+        <tr>
+          <td>Suresh</td>
+          <td>₹800</td>
+          <td>Sale</td>
+          <td>आज</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  © 2026 Dev Daimand Tool | Smart Hisab Kitab with AI
+</footer>
+
+<!-- ================= JS ================= -->
+<script src="js/data.js"></script>
+<script src="js/hisab.js"></script>
 
 </body>
 </html>
